@@ -7,3 +7,5 @@ reportlab
 watchfiles
 python-multipart
 python-dotenv
+PyJWT
+passlib[bcrypt]
