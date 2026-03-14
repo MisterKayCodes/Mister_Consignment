@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #ffffff;
+  --color-foreground: #1a1a1a;
+  --color-primary: #7c3aed; /* Vibrant Purple */
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #f4f4f5;
+  --color-secondary-foreground: #1a1a1a;
+  --color-accent: #a855f7;
+  --color-accent-foreground: #ffffff;
+  --color-card: #ffffff;
+  --color-card-foreground: #1a1a1a;
+  --color-muted: #71717a;
+  --color-border: #e4e4e7;
+  
+  --shadow-premium: 0 10px 40px -10px rgba(124, 58, 237, 0.1);
+}
+
+@utility glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(124, 58, 237, 0.1);
+}
+
+@utility premium-card {
+  @apply bg-white rounded-3xl p-8 border border-zinc-100 transition-all duration-500;
+  box-shadow: var(--shadow-premium);
+  &:hover {
+    @apply border-purple-200;
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px -12px rgba(124, 58, 237, 0.15);
+  }
+}
+
+@utility gradient-text {
+  @apply bg-clip-text text-transparent bg-gradient-to-br from-purple-600 to-indigo-600;
+}
+
+:root {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  background-attachment: fixed;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(124, 58, 237, 0.03) 0, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.03) 0, transparent 50%);
+}
+
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}

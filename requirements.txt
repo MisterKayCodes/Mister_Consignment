@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+pydantic-settings
+pydantic
+reportlab
+watchfiles
+python-multipart
+python-dotenv
