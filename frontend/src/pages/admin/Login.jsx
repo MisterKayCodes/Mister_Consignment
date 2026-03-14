@@ -22,7 +22,7 @@ export default function AdminLogin() {
       params.append('username', username);
       params.append('password', password);
 
-      const baseUrl = window.location.hostname === 'localhost' ? 'http://localhost:8000' : `http://${window.location.hostname}:8000`;
+      const baseUrl = window.location.hostname === 'localhost' ? 'http://localhost:8000' : '';
       const response = await axios.post(`${baseUrl}/api/auth/login`, params, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
