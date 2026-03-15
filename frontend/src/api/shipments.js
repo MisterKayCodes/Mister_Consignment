@@ -21,6 +21,13 @@ export const shipmentApi = {
   updateHistory: (id, data) => api.put(`/shipments/history/${id}`, null, { params: data }),
   deleteHistory: (id) => api.delete(`/shipments/history/${id}`),
   deleteShipment: (id) => api.delete(`/shipments/${id}`),
+  uploadFile: (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    return api.post('/uploads/', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    });
+  },
   getInvoiceUrl: (trackingId) => `${api.defaults.baseURL}/shipments/${trackingId}/invoice`,
   api: api
 };

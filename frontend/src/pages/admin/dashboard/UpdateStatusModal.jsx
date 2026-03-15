@@ -1,6 +1,8 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { Edit2, Trash2, History } from 'lucide-react';
+import { Edit2, Trash2, History, Camera, Loader2 } from 'lucide-react';
 import { Button, Input } from '../../../components/ui/Primitives';
+import { shipmentApi } from '../../../api/shipments';
+import { useState } from 'react';
 
 export function UpdateStatusModal({
   selectedShipment,
@@ -13,6 +15,23 @@ export function UpdateStatusModal({
   handleDeleteHistory,
   setShowUpdate
 }) {
+  const [uploading, setUploading] = useState(false);
+  
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setUploading(true);
+    try {
+      const resp = await shipmentApi.uploadFile(file);
+      setUpdateForm({ ...updateForm, photo_url: resp.data.url });
+    } catch (err) {
+      console.error('Upload failed', err);
+    } finally {
+      setUploading(false);
+    }
+  };
+
   return (
     <div className="fixed inset-0 z-[100] bg-white/60 backdrop-blur-md flex items-center justify-center p-4">
       <motion.div 
@@ -43,6 +62,39 @@ export function UpdateStatusModal({
             <div className="space-y-2">
               <p className="text-[10px] font-black text-zinc-400 uppercase tracking-widest ml-1">Internal Remarks</p>
               <Input placeholder="Remarks" value={updateForm.remarks} onChange={e => setUpdateForm({...updateForm, remarks: e.target.value})} />
+            </div>
+
+            <div className="space-y-2">
+              <p className="text-[10px] font-black text-zinc-400 uppercase tracking-widest ml-1">Photo Evidence (Optional)</p>
+              <div className="flex flex-col gap-4">
+                {updateForm.photo_url ? (
+                  <div className="relative w-full h-40 rounded-2xl overflow-hidden border border-zinc-200 group">
+                    <img src={updateForm.photo_url} className="w-full h-full object-cover" alt="Preview" />
+                    <button 
+                      type="button"
+                      onClick={() => setUpdateForm({...updateForm, photo_url: ''})}
+                      className="absolute top-2 right-2 bg-red-500 text-white p-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ) : (
+                  <label className={`
+                    w-full h-32 rounded-2xl border-2 border-dashed flex flex-col items-center justify-center cursor-pointer transition-all
+                    ${uploading ? 'bg-zinc-50 border-zinc-200 cursor-wait' : 'border-zinc-200 hover:border-purple-300 hover:bg-purple-50/30'}
+                  `}>
+                    <input type="file" className="hidden" accept="image/*" onChange={handleFileChange} disabled={uploading} />
+                    {uploading ? (
+                      <Loader2 className="animate-spin text-purple-600 mb-2" size={24} />
+                    ) : (
+                      <Camera className="text-zinc-400 mb-2" size={24} />
+                    )}
+                    <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">
+                      {uploading ? 'Uploading...' : 'Tap to Upload Photo'}
+                    </span>
+                  </label>
+                )}
+              </div>
             </div>
             <div className="flex flex-col gap-3 mt-8">
               <Button type="submit" className="w-full py-4 rounded-xl">
