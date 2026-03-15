@@ -42,7 +42,7 @@ export default function AdminUsers() {
     setLoading(true);
     try {
       // Using relative path to maintain /api prefix from baseURL
-      const resp = await api.get('admins/');
+      const resp = await api.get('/admins/');
       setUsers(resp.data);
     } catch (e) {
       console.error(e);
@@ -61,7 +61,7 @@ export default function AdminUsers() {
   const handleCreate = async (e) => {
     e.preventDefault();
     try {
-      await api.post('admins/', newUser);
+      await api.post('/admins/', newUser);
       setShowCreate(false);
       setNewUser({ username: '', password: '', is_super_admin: false });
       showToast('Admin created successfully', 'success');
@@ -82,7 +82,7 @@ export default function AdminUsers() {
     if (!confirmed) return;
     
     try {
-      await api.delete(`admins/${id}`);
+      await api.delete(`/admins/${id}`);
       showToast('Admin removed', 'success');
       fetchUsers();
     } catch (e) {
@@ -93,7 +93,7 @@ export default function AdminUsers() {
 
   const toggleRole = async (id, currentIsSuper) => {
     try {
-      await api.patch(`admins/${id}/role?is_super_admin=${!currentIsSuper}`);
+      await api.patch(`/admins/${id}/role?is_super_admin=${!currentIsSuper}`);
       showToast('Role updated successfully', 'success');
       fetchUsers();
     } catch (e) {
@@ -111,7 +111,7 @@ export default function AdminUsers() {
     
     setLoading(true);
     try {
-      await api.patch(`admins/${passwordReset.userId}/password`, {
+      await api.patch(`/admins/${passwordReset.userId}/password`, {
         password: passwordReset.newPassword
       });
       showToast(`Password for ${passwordReset.username} updated`, 'success');

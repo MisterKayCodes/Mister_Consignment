@@ -51,7 +51,7 @@ export default function AdminDashboard() {
   const fetchAdmins = async () => {
     if (!isSuperAdmin) return;
     try {
-      const resp = await api.get('admins/');
+      const resp = await api.get('/admins/');
       setAdmins(resp.data);
     } catch (e) {
       console.error('Failed to fetch admins', e);
