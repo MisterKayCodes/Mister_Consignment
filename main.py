@@ -38,7 +38,7 @@ app.include_router(auth_router, prefix="/api/auth", tags=["Auth"])
 app.include_router(admins_router, prefix="/api/admins", tags=["Admins"])
 app.include_router(shipment_router, prefix="/api/shipments", tags=["Shipments"])
 app.include_router(support_router, prefix="/api/support", tags=["Support"])
-app.include_router(uploads_router, prefix="/api/uploads", tags=["Uploads"])
+app.include_router(uploads_router, prefix="/api/upload", tags=["Uploads"])
 
 @app.get("/")
 async def root():

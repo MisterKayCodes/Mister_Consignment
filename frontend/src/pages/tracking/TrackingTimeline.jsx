@@ -70,7 +70,11 @@ export const TimelineItem = ({ item, isLast, index, shipmentId }) => {
         <p className="text-zinc-500 font-medium">{item.location || 'Central Processing Hub'}</p>
         {item.photo_url && (
            <div className="mt-4 rounded-2xl overflow-hidden border-2 border-purple-500/10 shadow-lg group relative max-w-sm">
-              <img src={item.photo_url} alt="Status evidence" className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110" />
+              <img 
+                src={item.photo_url.startsWith('/uploads/') ? `/api${item.photo_url}` : item.photo_url} 
+                alt="Status evidence" 
+                className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110" 
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-purple-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
                  <span className="text-white text-[10px] font-black uppercase tracking-widest">Visual Evidence Active</span>
               </div>
