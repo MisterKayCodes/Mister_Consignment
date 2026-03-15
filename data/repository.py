@@ -103,6 +103,9 @@ class ShipmentRepository:
     def get_all_custom_statuses(self):
         return self.db.query(CustomStatus).all()
 
+    def get_shipment_by_tracking_id(self, tracking_id: str):
+        return self.db.query(Shipment).filter(Shipment.tracking_id == tracking_id).first()
+
     # --- Support System ---
     def generate_ticket_id(self):
         return f"TKT-{uuid.uuid4().hex[:6].upper()}"
