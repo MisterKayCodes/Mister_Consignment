@@ -29,4 +29,4 @@ async def upload_file(file: UploadFile = File(...), admin: AdminUser = Depends(g
         raise HTTPException(status_code=500, detail=f"Could not save file: {str(e)}")
     
     # Return the relative URL (will be served by FastAPI static mount)
-    return {"url": f"/uploads/{filename}"}
+    return {"url": f"/api/uploads/{filename}"}

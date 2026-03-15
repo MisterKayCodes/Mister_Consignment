@@ -17,7 +17,8 @@ app = FastAPI(title=settings.PROJECT_NAME)
 if not os.path.exists("uploads"):
     os.makedirs("uploads")
 
-# Mount Static Files for uploads
+# Mount Static Files for uploads (double mount for backward compatibility)
+app.mount("/api/uploads", StaticFiles(directory="uploads"), name="uploads_api")
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
 # Initialize Database
