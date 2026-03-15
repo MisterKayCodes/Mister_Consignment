@@ -5,6 +5,7 @@ venv/
 .venv/
 env/
 *.sqlite3
+consignment.db
 dist/
 build/
 .DS_Store
