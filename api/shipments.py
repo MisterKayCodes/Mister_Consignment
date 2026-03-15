@@ -3,7 +3,7 @@ from data.repository import get_db, ShipmentRepository, Session
 from schemas.shipment import ShipmentCreate, Shipment as ShipmentSchema, ShipmentTrack
 from models.base import Shipment as DBShipment
 from core.tracking import TrackingLogic
-from core.auth import get_current_admin, get_current_super_admin
+from api.deps import get_current_admin, get_current_super_admin
 from models.base import AdminUser
 from services.documents import DocumentService
 from typing import List, Optional

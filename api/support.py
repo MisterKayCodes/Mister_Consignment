@@ -3,7 +3,7 @@ from data.repository import get_db, ShipmentRepository, Session
 from typing import List, Optional
 from pydantic import BaseModel
 from datetime import datetime
-from core.auth import get_current_admin
+from api.deps import get_current_admin
 from models.base import AdminUser
 
 router = APIRouter()

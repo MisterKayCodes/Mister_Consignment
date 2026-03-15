@@ -2,7 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, Field
 from typing import List
 from data.repository import get_db, Session
-from core.auth import get_current_super_admin, get_password_hash
+from api.deps import get_current_super_admin
+from core.auth import get_password_hash
 from models.base import AdminUser
 
 router = APIRouter()

@@ -1,7 +1,7 @@
 import os
 import uuid
 from fastapi import APIRouter, UploadFile, File, Depends, HTTPException
-from core.auth import get_current_admin
+from api.deps import get_current_admin
 from models.base import AdminUser
 
 router = APIRouter()
