@@ -2,8 +2,8 @@ import axios from 'axios';
 
 const api = axios.create({
   baseURL: (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') 
-    ? (import.meta.env.VITE_API_URL || 'http://localhost:8000/api')
-    : '/api',
+    ? (import.meta.env.VITE_API_URL || 'http://localhost:8000/api/')
+    : '/api/',
 });
 
 api.interceptors.request.use((config) => {
