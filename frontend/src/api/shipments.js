@@ -18,6 +18,7 @@ export const shipmentApi = {
   addHistory: (id, data) => api.post(`/shipments/${id}/history`, null, { params: data }),
   updateHistory: (id, data) => api.put(`/shipments/history/${id}`, null, { params: data }),
   deleteHistory: (id) => api.delete(`/shipments/history/${id}`),
+  deleteShipment: (id) => api.delete(`/shipments/${id}`),
   getInvoiceUrl: (trackingId) => `${api.defaults.baseURL}/shipments/${trackingId}/invoice`,
   api: api
 };

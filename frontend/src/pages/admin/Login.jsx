@@ -24,9 +24,7 @@ export default function AdminLogin() {
 
       const baseUrl = window.location.hostname === 'localhost' ? 'http://localhost:8000' : '';
       const response = await axios.post(`${baseUrl}/api/auth/login`, params, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
       });
       
       login(response.data.access_token, response.data.is_super_admin);
