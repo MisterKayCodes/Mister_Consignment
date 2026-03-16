@@ -6,6 +6,7 @@ from core.tracking import TrackingLogic
 from api.deps import get_current_admin, get_current_super_admin
 from models.base import AdminUser
 from services.documents import DocumentService
+from services.email_service import email_service
 from typing import List, Optional
 
 router = APIRouter()
@@ -56,7 +57,25 @@ def get_invoice(tracking_id: str, db: Session = Depends(get_db)):
 @router.post("/{shipment_id}/history")
 def add_history(shipment_id: int, status: str, remarks: Optional[str] = None, location: Optional[str] = None, photo_url: Optional[str] = None, db: Session = Depends(get_db), admin: AdminUser = Depends(get_current_admin)):
     repo = ShipmentRepository(db)
-    return repo.add_history(shipment_id, status, remarks, location, photo_url)
+    history = repo.add_history(shipment_id, status, remarks, location, photo_url)
+    
+    # Send Email Notification
+    shipment = repo.db.query(DBShipment).filter(DBShipment.id == shipment_id).first()
+    if shipment and shipment.receiver_email:
+        email_service.send_templated_email(
+            db=db,
+            to_email=shipment.receiver_email,
+            template_name="shipping_update",
+            data={
+                "receiver_name": shipment.receiver_name,
+                "tracking_id": shipment.tracking_id,
+                "status": status,
+                "location": location or "In Transit",
+                "remarks": remarks or "No specific remarks"
+            }
+        )
+    
+    return history
 
 @router.delete("/{shipment_id}")
 def delete_shipment(shipment_id: int, db: Session = Depends(get_db), admin: AdminUser = Depends(get_current_super_admin)):

@@ -14,6 +14,7 @@ class Shipment(Base):
     sender_address = Column(String)
     receiver_name = Column(String, nullable=False)
     receiver_address = Column(String)
+    receiver_email = Column(String)
     
     package_type = Column(String) # Air, Sea, Land
     weight = Column(Float)
@@ -78,3 +79,13 @@ class AdminUser(Base):
     username = Column(String, unique=True, index=True, nullable=False)
     password_hash = Column(String, nullable=False)
     is_super_admin = Column(Integer, default=0)
+
+class EmailTemplate(Base):
+    __tablename__ = "email_templates"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, unique=True, index=True, nullable=False)
+    subject = Column(String, nullable=False)
+    content = Column(Text, nullable=False) # Supports HTML
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)

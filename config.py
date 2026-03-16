@@ -10,6 +10,8 @@ class Settings(BaseSettings):
     TWILIO_ACCOUNT_SID: Optional[str] = None
     TWILIO_AUTH_TOKEN: Optional[str] = None
     SENDGRID_API_KEY: Optional[str] = None
+    RESEND_API_KEY: Optional[str] = None
+    FROM_EMAIL: str = "onboarding@resend.dev" # Change to admin@thevantagelogistic.com after verification
 
     model_config = SettingsConfigDict(env_file=".env")
 

@@ -34,6 +34,7 @@ class ShipmentBase(BaseModel):
     sender_address: Optional[str] = None
     receiver_name: str
     receiver_address: Optional[str] = None
+    receiver_email: Optional[str] = None
     package_type: Optional[str] = None
     weight: Optional[float] = None
     dimensions: Optional[str] = None

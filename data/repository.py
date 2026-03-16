@@ -146,3 +146,34 @@ class ShipmentRepository:
         self.db.commit()
         self.db.refresh(status)
         return status
+
+class EmailTemplateRepository:
+    def __init__(self, db: Session):
+        self.db = db
+
+    def get_all_templates(self):
+        return self.db.query(EmailTemplate).all()
+
+    def get_template_by_name(self, name: str):
+        return self.db.query(EmailTemplate).filter(EmailTemplate.name == name).first()
+
+    def create_template(self, template_data: dict):
+        existing = self.get_template_by_name(template_data["name"])
+        if existing:
+            for key, value in template_data.items():
+                setattr(existing, key, value)
+            db_template = existing
+        else:
+            db_template = EmailTemplate(**template_data)
+            self.db.add(db_template)
+        
+        self.db.commit()
+        self.db.refresh(db_template)
+        return db_template
+
+    def delete_template(self, name: str):
+        template = self.get_template_by_name(name)
+        if not template: return False
+        self.db.delete(template)
+        self.db.commit()
+        return True

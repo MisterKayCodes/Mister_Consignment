@@ -7,6 +7,8 @@ from api.support import router as support_router
 from api.auth import router as auth_router
 from api.admins import router as admins_router
 from api.uploads import router as uploads_router
+from api.emails import router as emails_router
+from data.repository import EmailTemplateRepository
 from fastapi.staticfiles import StaticFiles
 from config import settings
 import os
@@ -39,6 +41,7 @@ app.include_router(admins_router, prefix="/api/admins", tags=["Admins"])
 app.include_router(shipment_router, prefix="/api/shipments", tags=["Shipments"])
 app.include_router(support_router, prefix="/api/support", tags=["Support"])
 app.include_router(uploads_router, prefix="/api/upload", tags=["Uploads"])
+app.include_router(emails_router, prefix="/api/emails", tags=["Emails"])
 
 @app.get("/")
 async def root():
