@@ -24,6 +24,7 @@ export function CreateShipmentModal({
             <p className="text-xs font-bold text-zinc-400 uppercase tracking-widest ml-1">Destination Details</p>
             <Input placeholder="Receiver Name" value={newShipment.receiver_name} onChange={e => setNewShipment({...newShipment, receiver_name: e.target.value})} required />
             <Input placeholder="Receiver Address" value={newShipment.receiver_address} onChange={e => setNewShipment({...newShipment, receiver_address: e.target.value})} />
+            <Input placeholder="Receiver Email" type="email" value={newShipment.receiver_email} onChange={e => setNewShipment({...newShipment, receiver_email: e.target.value})} />
           </div>
           <div className="sm:col-span-2 space-y-4 pt-4 border-t border-zinc-100">
             <p className="text-xs font-bold text-zinc-400 uppercase tracking-widest ml-1">Cargo Specs</p>

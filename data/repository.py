@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
-from models.base import Base, Shipment, ShipmentHistory, CustomStatus, SupportTicket, SupportMessage
+from models.base import Base, Shipment, ShipmentHistory, CustomStatus, SupportTicket, SupportMessage, EmailTemplate
 from config import settings
 import uuid
 from datetime import datetime
