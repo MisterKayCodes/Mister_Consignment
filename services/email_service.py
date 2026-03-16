@@ -2,7 +2,7 @@ import resend
 from config import settings
 from typing import Dict, Any
 from models.base import EmailTemplate
-from sqlalchemy.orm import Session
+from data.repository import Session
 import re
 
 class EmailService:

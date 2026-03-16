@@ -1,6 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
-from data.repository import get_db, EmailTemplateRepository
+from data.repository import get_db, EmailTemplateRepository, Session
 from api.deps import get_current_admin
 from models.base import AdminUser, EmailTemplate
 from pydantic import BaseModel
