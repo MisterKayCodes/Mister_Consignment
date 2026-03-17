@@ -23,7 +23,7 @@ export default function AdminDashboard() {
   
   const [newShipment, setNewShipment] = useState({
     sender_name: '', sender_address: '',
-    receiver_name: '', receiver_address: '',
+    receiver_name: '', receiver_address: '', receiver_email: '',
     package_type: 'Air', weight: 0, dimensions: '', description: ''
   });
   

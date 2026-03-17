@@ -62,7 +62,8 @@ def add_history(shipment_id: int, status: str, remarks: Optional[str] = None, lo
     # Send Email Notification
     shipment = repo.db.query(DBShipment).filter(DBShipment.id == shipment_id).first()
     if shipment and shipment.receiver_email:
-        email_service.send_templated_email(
+        print(f"DEBUG: Attempting to send email to {shipment.receiver_email} for shipment {shipment.tracking_id}")
+        res = email_service.send_templated_email(
             db=db,
             to_email=shipment.receiver_email,
             template_name="shipping_update",
@@ -74,6 +75,9 @@ def add_history(shipment_id: int, status: str, remarks: Optional[str] = None, lo
                 "remarks": remarks or "No specific remarks"
             }
         )
+        print(f"DEBUG: Email service result: {res}")
+    else:
+        print(f"DEBUG: Skipping email. Shipment found: {shipment is not None}, Receiver Email: {shipment.receiver_email if shipment else 'N/A'}")
     
     return history
 
