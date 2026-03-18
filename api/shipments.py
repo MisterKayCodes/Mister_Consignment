@@ -14,7 +14,24 @@ router = APIRouter()
 @router.post("/", response_model=ShipmentSchema)
 def create_shipment(shipment: ShipmentCreate, db: Session = Depends(get_db), admin: AdminUser = Depends(get_current_admin)):
     repo = ShipmentRepository(db)
-    return repo.create_shipment(shipment.dict())
+    created_shipment = repo.create_shipment(shipment.dict())
+    
+    # Send Registration Email
+    if created_shipment.receiver_email:
+        print(f"DEBUG: Attempting to send registration email to {created_shipment.receiver_email}")
+        email_service.send_templated_email(
+            db=db,
+            to_email=created_shipment.receiver_email,
+            template_name="shipment_registered",
+            data={
+                "receiver_name": created_shipment.receiver_name,
+                "tracking_id": created_shipment.tracking_id,
+                "sender_name": created_shipment.sender_name,
+                "receiver_address": created_shipment.receiver_address
+            }
+        )
+    
+    return created_shipment
 
 @router.get("/{tracking_id}", response_model=ShipmentTrack)
 def track_shipment(tracking_id: str, db: Session = Depends(get_db)):

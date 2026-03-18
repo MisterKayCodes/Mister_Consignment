@@ -32,7 +32,33 @@ def seed_templates():
             """
         }
         
+        # New Registration Template
+        shipment_registered = {
+            "name": "shipment_registered",
+            "subject": "Ready for Journey: Tracking #{{tracking_id}}",
+            "content": """
+            <div style="font-family: sans-serif; max-width: 600px; margin: auto; border: 1px solid #eee; padding: 20px; border-radius: 10px;">
+                <h2 style="color: #6366f1;">Vantage Logistics</h2>
+                <p>Hello <strong>{{receiver_name}}</strong>,</p>
+                <p>An item is now scheduled for delivery to your location. We have officially registered your entry in our global network.</p>
+                <div style="background: #f9fafb; padding: 15px; border-radius: 8px; margin: 20px 0;">
+                    <p><strong>Tracking Number:</strong> <span style="font-family: monospace; font-weight: bold; color: #6366f1;">{{tracking_id}}</span></p>
+                    <p><strong>Origin:</strong> {{sender_name}}</p>
+                    <p><strong>Destination:</strong> {{receiver_address}}</p>
+                </div>
+                <p>You can monitor the progress of this journey at any time using our live portal:</p>
+                <div style="text-align: center; margin: 30px 0;">
+                    <a href="https://thevantagelogistic.com/track?id={{tracking_id}}" style="background: #6366f1; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold;">Track My Journey</a>
+                </div>
+                <p style="font-size: 13px; color: #4b5563;">Please keep your tracking number safe. It is the only way to access live updates and delivery estimates.</p>
+                <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+                <p style="font-size: 12px; color: #6b7280;">This is an automated alert from Vantage Logistics Global Gateway. No reply is needed.</p>
+            </div>
+            """
+        }
+        
         repo.create_template(shipping_update)
+        repo.create_template(shipment_registered)
         print("Templates seeded successfully!")
         db.close()
     except Exception as e:
